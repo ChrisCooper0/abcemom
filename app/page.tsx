@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type KettlebellMode = "single" | "double";
 type Screen = "setup" | "running" | "complete";
@@ -636,6 +636,47 @@ function formatClock(totalSeconds: number): string {
   return `${m}:${rem.toString().padStart(2, "0")}`;
 }
 
+function useBeeper() {
+  const ctxRef = useRef<AudioContext | null>(null);
+
+  const ensureCtx = useCallback(() => {
+    if (!ctxRef.current) {
+      const Ctor =
+        (window as any).AudioContext || (window as any).webkitAudioContext;
+      try {
+        ctxRef.current = new Ctor();
+      } catch {
+        ctxRef.current = null;
+      }
+    }
+    return ctxRef.current;
+  }, []);
+
+  const beep = useCallback(
+    (freq: number, durationMs: number, gain = 0.05) => {
+      try {
+        const ctx = ensureCtx();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        g.gain.value = gain;
+        osc.connect(g);
+        g.connect(ctx.destination);
+        const now = ctx.currentTime;
+        osc.start(now);
+        osc.stop(now + durationMs / 1000);
+      } catch {
+        // ignore audio errors
+      }
+    },
+    [ensureCtx],
+  );
+
+  return beep;
+}
+
 export default function Page() {
   const [config, setConfig] = useState<WorkoutConfig>(DEFAULT_CONFIG);
   const [screen, setScreen] = useState<Screen>("setup");
@@ -645,6 +686,7 @@ export default function Page() {
 
   const endTimeRef = useRef<number>(0);
   const lastBeepMarkRef = useRef<number>(-1);
+  const beep = useBeeper();
   const totalWorkoutSeconds = config.rounds * EMOM_INTERVAL_SECONDS;
 
   const startWorkout = () => {
@@ -654,6 +696,7 @@ export default function Page() {
     lastBeepMarkRef.current = -1;
     setIsPaused(false);
     setScreen("running");
+    beep(660, 150, 0.06);
   };
 
   const resetWorkout = () => {
@@ -686,6 +729,8 @@ export default function Page() {
         if (round >= config.rounds) {
           setSecondsLeft(0);
           setScreen("complete");
+          beep(880, 300, 0.08);
+          window.setTimeout(() => beep(1046, 350, 0.08), 260);
           return;
         }
 
@@ -694,6 +739,7 @@ export default function Page() {
         lastBeepMarkRef.current = -1;
         setRound(nextRound);
         setSecondsLeft(EMOM_INTERVAL_SECONDS);
+        beep(740, 180, 0.07);
         return;
       }
 
@@ -706,6 +752,7 @@ export default function Page() {
         lastBeepMarkRef.current !== wholeSecondsLeft
       ) {
         lastBeepMarkRef.current = wholeSecondsLeft;
+        beep(520, 90, 0.045);
       }
     };
 
