@@ -641,12 +641,19 @@ function useBeeper() {
 
   const ensureCtx = useCallback(() => {
     if (!ctxRef.current) {
-      const Ctor =
-        (window as any).AudioContext || (window as any).webkitAudioContext;
-      try {
-        ctxRef.current = new Ctor();
-      } catch {
+      const win = window as unknown as Window & {
+        AudioContext?: typeof AudioContext;
+        webkitAudioContext?: typeof AudioContext;
+      };
+      const Ctor = win.AudioContext ?? win.webkitAudioContext;
+      if (!Ctor) {
         ctxRef.current = null;
+      } else {
+        try {
+          ctxRef.current = new Ctor();
+        } catch {
+          ctxRef.current = null;
+        }
       }
     }
     return ctxRef.current;
@@ -758,7 +765,7 @@ export default function Page() {
 
     const id = window.setInterval(tick, 250);
     return () => window.clearInterval(id);
-  }, [screen, isPaused, round, config.rounds]);
+  }, [screen, isPaused, round, config.rounds, beep]);
 
   const armLabel =
     config.mode === "single"

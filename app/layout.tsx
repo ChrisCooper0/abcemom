@@ -26,8 +26,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "ABCEMOM — Kettlebell EMOM Timer",
-  description:
-    "A responsive kettlebell EMOM workout timer built with Next.js and React.",
+  description: "A Kettlebell EMOM workout timer.",
 };
 
 export default function RootLayout({
