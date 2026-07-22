@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ABCEMOM
 
-## Getting Started
+A lightweight kettlebell EMOM timer built with Next.js and TypeScript.
 
-First, run the development server:
+## What it does
+
+- Provides a full-screen EMOM (every minute on the minute) workout timer.
+- Supports single and double kettlebell ABC-style (Armour Building Complex) rounds.
+- Lets users choose preset round counts or type a custom round count.
+- Displays total workout time, active round, and countdown seconds.
+- Uses browser audio to beep at each minute and in the final countdown.
+- Works entirely client-side with no backend required.
+
+## Tech stack
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- CSS-in-JSX styling inside `app/page.tsx`
+- Web Audio API for timer beeps
+
+## Getting started
+
+Install dependencies and run the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+You can also run the production server locally after building:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- The workout configuration and timer logic are implemented in `app/page.tsx`.
+- Custom round input is sanitized to digits only.
+- There are no server-side APIs or external data dependencies in this app.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Open source
+
+This repository is released under the MIT License. Contributions are welcome via pull request.
