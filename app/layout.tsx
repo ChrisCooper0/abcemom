@@ -38,10 +38,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable} ${ibmPlexMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable} ${ibmPlexMono.variable}`}
     >
       <Analytics />
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
