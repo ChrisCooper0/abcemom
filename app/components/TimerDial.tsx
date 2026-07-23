@@ -4,7 +4,6 @@ type TimerDialProps = {
   secondsLeft: number;
   progressFraction: number;
   armLabel: string | null;
-  mode: "single" | "double";
 };
 
 const DIAL_RADIUS = 138;
@@ -16,7 +15,6 @@ export function TimerDial({
   secondsLeft,
   progressFraction,
   armLabel,
-  mode,
 }: TimerDialProps) {
   const circumference = 2 * Math.PI * DIAL_RADIUS;
   const offset =
@@ -91,11 +89,6 @@ export function TimerDial({
           {formatClock(secondsLeft)}
         </div>
         {armLabel && <div className="arm-badge">{armLabel}</div>}
-      </div>
-      <div className="dial-note">
-        {mode === "double"
-          ? "Double kettlebell round"
-          : "Single kettlebell round"}
       </div>
     </div>
   );

@@ -263,7 +263,6 @@ export function RunningScreen({
         secondsLeft={secondsLeft}
         progressFraction={progressFraction}
         armLabel={armLabel}
-        mode={config.mode}
       />
 
       {config.mode === "double" ? (
