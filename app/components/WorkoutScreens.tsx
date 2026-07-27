@@ -110,15 +110,19 @@ export function SetupScreen({
           <div className="complex-grid">
             <div className="complex-card side-card">
               <div className="side-label">Right side first</div>
-              <div>1 x Left Clean & Press</div>
-              <div>1 x Right Clean & Press</div>
-              <div>2 x Right Front Squats</div>
+              <div>1 x Left Clean</div>
+              <div>1 x Left Press</div>
+              <div>1 x Right Clean</div>
+              <div>1 x Right Press</div>
+              <div>2 x Right Offset Squats</div>
             </div>
             <div className="complex-card side-card">
               <div className="side-label">Left side first</div>
-              <div>1 x Right Clean & Press</div>
-              <div>1 x Left Clean & Press</div>
-              <div>2 x Left Front Squats</div>
+              <div>1 x Right Clean</div>
+              <div>1 x Right Press</div>
+              <div>1 x Left Clean</div>
+              <div>1 x Left Press</div>
+              <div>2 x Left Offset Squats</div>
             </div>
           </div>
         )}
@@ -127,7 +131,7 @@ export function SetupScreen({
       <p className="subtitle" style={{ marginBottom: 22 }}>
         {config.mode === "double"
           ? "One round = 2 double cleans, 1 double press, and 3 double front squats."
-          : "One round alternates which side squats first: Right side first on odd rounds, Left side first on even rounds."}
+          : "One round alternates sides: one minute with right offset squats, the next minute repeats the same clean and press sequence on the opposite side."}
       </p>
 
       <div className="field-row">
