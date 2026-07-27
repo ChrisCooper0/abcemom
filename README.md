@@ -9,6 +9,7 @@ Open-source Kettlebell Armour Building Complex (ABC) EMOM timer
 - Lets users choose preset round counts or type a custom round count.
 - Displays total workout time, active round, and countdown seconds.
 - Uses browser audio to beep at each minute and in the final countdown.
+- Keeps the screen awake during active workouts using the Wake Lock API.
 - Works entirely client-side with no backend required.
 
 ## Tech stack
@@ -19,6 +20,7 @@ Open-source Kettlebell Armour Building Complex (ABC) EMOM timer
 - Component-based UI in `app/page.tsx`, `app/components/WorkoutScreens.tsx`, and `app/components/TimerDial.tsx`
 - Styles defined in `app/page.css`
 - Web Audio API for timer beeps via `app/hooks/useBeeper.ts`
+- Wake Lock API support via `app/hooks/useWakeLock.ts`
 
 ## Project structure
 
@@ -26,6 +28,7 @@ Open-source Kettlebell Armour Building Complex (ABC) EMOM timer
 - `app/components/WorkoutScreens.tsx` — setup, running, and complete screen components
 - `app/components/TimerDial.tsx` — countdown dial visualization and accessibility support
 - `app/hooks/useBeeper.ts` — browser audio helper with autoplay policy handling
+- `app/hooks/useWakeLock.ts` — wake lock helper to keep the screen active during workouts
 - `app/page.css` — page styling and responsive layout
 
 ## Getting started
