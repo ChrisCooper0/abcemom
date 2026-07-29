@@ -244,6 +244,7 @@ export function RunningScreen({
   progressFraction,
   onTogglePause,
   onEnd,
+  countdownLabel,
 }: {
   config: WorkoutConfig;
   round: number;
@@ -253,11 +254,16 @@ export function RunningScreen({
   progressFraction: number;
   onTogglePause: () => void;
   onEnd: () => void;
+  countdownLabel?: string;
 }) {
   return (
     <div className="run-wrap">
       <p className="run-eyebrow">
-        {config.mode === "single" ? "Single Kettlebell" : "Double Kettlebell"}
+        {countdownLabel
+          ? countdownLabel
+          : config.mode === "single"
+          ? "Single Kettlebell"
+          : "Double Kettlebell"}
       </p>
       <p className="round-indicator">
         Round <span>{round}</span> / {config.rounds}
@@ -303,12 +309,16 @@ export function RunningScreen({
 export function CompleteScreen({
   config,
   totalWorkoutSeconds,
+  completedRounds,
   onReset,
 }: {
   config: WorkoutConfig;
   totalWorkoutSeconds: number;
+  completedRounds?: number;
   onReset: () => void;
 }) {
+  const roundsToShow = completedRounds ?? config.rounds;
+
   return (
     <div className="complete-wrap">
       <p className="complete-eyebrow">Workout Complete</p>
@@ -316,7 +326,7 @@ export function CompleteScreen({
 
       <div className="complete-stats">
         <div>
-          <div className="complete-stat-value">{config.rounds}</div>
+          <div className="complete-stat-value">{roundsToShow}</div>
           <div className="complete-stat-label">Rounds</div>
         </div>
         <div>
