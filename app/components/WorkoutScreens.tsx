@@ -79,18 +79,20 @@ export function SetupScreen({
   };
 
   return (
-    <div>
-      <h1 className="title">
-        Armor Building
-        <br />
-        Complex EMOM
-      </h1>
-      <p className="subtitle">
-        Every minute on the minute. Set your kettlebell and your rounds — then
-        get to work.
-      </p>
+    <div className="setup-wrap">
+      <div className="setup-intro">
+        <h1 className="title">
+          ABC
+          <br />
+          EMOM
+        </h1>
+        <p className="subtitle">
+          Every minute on the minute. Set your kettlebell and your rounds — then
+          get to work.
+        </p>
+      </div>
 
-      <div className="complex-line">
+      <div className="complex-line workout-plan">
         {config.mode === "double" ? (
           <>
             <div className="complex-card">
@@ -128,13 +130,13 @@ export function SetupScreen({
         )}
       </div>
 
-      <p className="subtitle" style={{ marginBottom: 22 }}>
+      <p className="subtitle setup-note">
         {config.mode === "double"
           ? "One round = 2 double cleans, 1 double press, and 3 double front squats."
           : "One round alternates sides: one minute with right offset squats, the next minute repeats the same clean and press sequence on the opposite side."}
       </p>
 
-      <div className="field-row">
+      <div className="field-row setting-row">
         <p className="section-label">How many kettlebells?</p>
         <div className="segmented" role="group" aria-label="Kettlebell mode">
           <button
@@ -160,20 +162,16 @@ export function SetupScreen({
         </div>
       </div>
 
-      <div className="field-row">
+      <div className="field-row setting-row setting-row-static">
         <div className="field-row-head">
-          <p className="section-label" style={{ margin: 0 }}>
-            Interval
-          </p>
+          <p className="section-label">Interval</p>
           <span className="field-value">60s / round</span>
         </div>
       </div>
 
-      <div className="field-row">
+      <div className="field-row setting-row">
         <div className="field-row-head">
-          <p className="section-label" style={{ margin: 0 }}>
-            Rounds
-          </p>
+          <p className="section-label">Rounds</p>
           <span className="field-value">{config.rounds}</span>
         </div>
         <div className="preset-row">
@@ -257,17 +255,19 @@ export function RunningScreen({
   countdownLabel?: string;
 }) {
   return (
-    <div className="run-wrap">
-      <p className="run-eyebrow">
-        {countdownLabel
-          ? countdownLabel
-          : config.mode === "single"
-          ? "Single Kettlebell"
-          : "Double Kettlebell"}
-      </p>
-      <p className="round-indicator">
-        Round <span>{round}</span> / {config.rounds}
-      </p>
+    <div className={`run-wrap ${isPaused ? "is-paused" : ""}`}>
+      <div className="run-header">
+        <p className="run-eyebrow">
+          {countdownLabel
+            ? countdownLabel
+            : config.mode === "single"
+              ? "Single Kettlebell"
+              : "Double Kettlebell"}
+        </p>
+        <p className="round-indicator">
+          Round <span>{round}</span> / {config.rounds}
+        </p>
+      </div>
 
       <TimerDial
         secondsLeft={secondsLeft}
@@ -294,7 +294,7 @@ export function RunningScreen({
         </div>
       )}
 
-      <div className="run-controls">
+      <div className="run-controls" aria-label="Workout controls">
         <button type="button" onClick={onTogglePause}>
           {isPaused ? "Resume" : "Pause"}
         </button>
@@ -321,10 +321,13 @@ export function CompleteScreen({
 
   return (
     <div className="complete-wrap">
+      <div className="complete-mark" aria-hidden="true">
+        ✓
+      </div>
       <p className="complete-eyebrow">Workout Complete</p>
       <h1 className="complete-title">Rack the Bells</h1>
 
-      <div className="complete-stats">
+      <div className="complete-stats" aria-label="Workout summary">
         <div>
           <div className="complete-stat-value">{roundsToShow}</div>
           <div className="complete-stat-label">Rounds</div>
