@@ -158,11 +158,12 @@ export default function Page() {
   const armLabel =
     config.mode === "single"
       ? round % 2 === 1
-        ? "Right squats first"
-        : "Left squats first"
+        ? "Right side first"
+        : "Left side first"
       : null;
 
-  const displayedSeconds = screen === "countdown" ? countdownSeconds : secondsLeft;
+  const displayedSeconds =
+    screen === "countdown" ? countdownSeconds : secondsLeft;
   const progressFraction = Math.min(
     1,
     Math.max(
@@ -172,14 +173,6 @@ export default function Page() {
         : (EMOM_INTERVAL_SECONDS - secondsLeft) / EMOM_INTERVAL_SECONDS,
     ),
   );
-
-  const elapsedSeconds =
-    screen === "running"
-      ? EMOM_INTERVAL_SECONDS * (round - 1) +
-        Math.max(0, EMOM_INTERVAL_SECONDS - secondsLeft)
-      : screen === "countdown"
-      ? 0
-      : totalWorkoutSeconds;
 
   const handleEndWorkout = useCallback(() => {
     if (screen === "running") {

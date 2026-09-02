@@ -97,34 +97,32 @@ export function SetupScreen({
           <>
             <div className="complex-card">
               <span>2</span>
-              Double Cleans
+              Cleans
             </div>
             <div className="complex-card">
               <span>1 </span>
-              Double Press
+              Press
             </div>
             <div className="complex-card">
               <span>3</span>
-              Double Front Squats
+              Squats
             </div>
           </>
         ) : (
           <div className="complex-grid">
             <div className="complex-card side-card">
               <div className="side-label">Right side first</div>
-              <div>1 x Left Clean</div>
-              <div>1 x Left Press</div>
-              <div>1 x Right Clean</div>
-              <div>1 x Right Press</div>
-              <div>2 x Right Offset Squats</div>
+              <div>1 x Right Clean & Press</div>
+              <div>1 x Handswitch Swing</div>
+              <div>1 x Left Clean & Press</div>
+              <div>2 x Front Squats (KB racked on left)</div>
             </div>
             <div className="complex-card side-card">
               <div className="side-label">Left side first</div>
-              <div>1 x Right Clean</div>
-              <div>1 x Right Press</div>
-              <div>1 x Left Clean</div>
-              <div>1 x Left Press</div>
-              <div>2 x Left Offset Squats</div>
+              <div>1 x Left Clean & Press</div>
+              <div>1 x Handswitch Swing</div>
+              <div>1 x Right Clean & Press</div>
+              <div>2 x Front Squats (KB racked on right)</div>
             </div>
           </div>
         )}
@@ -132,8 +130,8 @@ export function SetupScreen({
 
       <p className="subtitle setup-note">
         {config.mode === "double"
-          ? "One round = 2 double cleans, 1 double press, and 3 double front squats."
-          : "One round alternates sides: one minute with right offset squats, the next minute repeats the same clean and press sequence on the opposite side."}
+          ? "One round = 2 cleans, 1 press, and 3 squats."
+          : "One round = clean & press one side, handswitch swing, clean & press the other side, then 2 front squats with the KB racked on that side; alternate which side starts each round."}
       </p>
 
       <div className="field-row setting-row">
@@ -229,6 +227,17 @@ export function SetupScreen({
       <button type="button" className="start-btn" onClick={onStart}>
         Start Workout
       </button>
+
+      <p className="setup-footer">
+        Made with ❤️ by{" "}
+        <a
+          className="setup-footer"
+          target="_blank"
+          href="https://github.com/ChrisCooper0/abcemom"
+        >
+          Cooper
+        </a>
+      </p>
     </div>
   );
 }
@@ -277,20 +286,25 @@ export function RunningScreen({
 
       {config.mode === "double" ? (
         <p className="reps-reminder">
-          <b>2</b> Double Cleans&nbsp; · &nbsp;<b>1&nbsp;</b> Double Press&nbsp;
-          · &nbsp;<b>3</b> Double Front Squats
+          <b>2</b> Cleans&nbsp; · &nbsp;<b>1&nbsp;</b> Press&nbsp; · &nbsp;
+          <b>3</b> Squats
         </p>
       ) : (
         <div className="reps-reminder reps-grid">
           <span>
-            <b>L</b> Clean & Press · <b>R</b> Clean & Press · <b>2</b> Right
-            Front Squats
+            {armLabel === "Right side first" ? (
+              <>
+                <b>R</b> Clean & Press · Handswitch Swing · <b>L</b> Clean &
+                Press · <b>2</b> Front Squats (KB racked on <b>L</b>)
+              </>
+            ) : (
+              <>
+                <b>L</b> Clean & Press · Handswitch Swing · <b>R</b> Clean &
+                Press · <b>2</b> Front Squats (KB racked on <b>R</b>)
+              </>
+            )}
           </span>
-          <span>
-            <b>R</b> Clean & Press · <b>L</b> Clean & Press · <b>2</b> Left
-            Front Squats
-          </span>
-          <span>Alternate which side squats first each round.</span>
+          <span>Alternate which side leads each round.</span>
         </div>
       )}
 
