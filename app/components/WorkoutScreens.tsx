@@ -79,62 +79,62 @@ export function SetupScreen({
   };
 
   return (
-    <div>
-      <h1 className="title">
-        Armor Building
-        <br />
-        Complex EMOM
-      </h1>
-      <p className="subtitle">
-        Every minute on the minute. Set your kettlebell and your rounds — then
-        get to work.
-      </p>
+    <div className="setup-wrap">
+      <div className="setup-intro">
+        <h1 className="title">
+          ABC
+          <br />
+          EMOM
+        </h1>
+        <p className="subtitle">
+          Every minute on the minute. Set your kettlebell and your rounds — then
+          get to work.
+        </p>
+      </div>
 
-      <div className="complex-line">
+      <div className="complex-line workout-plan">
         {config.mode === "double" ? (
           <>
             <div className="complex-card">
               <span>2</span>
-              Double Cleans
+              Cleans
             </div>
             <div className="complex-card">
               <span>1 </span>
-              Double Press
+              Press
             </div>
             <div className="complex-card">
               <span>3</span>
-              Double Front Squats
+              Squats
             </div>
           </>
         ) : (
           <div className="complex-grid">
             <div className="complex-card side-card">
               <div className="side-label">Right side first</div>
-              <div>1 x Left Clean</div>
-              <div>1 x Left Press</div>
-              <div>1 x Right Clean</div>
-              <div>1 x Right Press</div>
-              <div>2 x Right Offset Squats</div>
+              <div>1 x Right Clean & Press</div>
+              <div>1 x Handswitch Swing</div>
+              <div>1 x Left Clean & Press</div>
+              <div>2 x Front Squats (KB racked on left)</div>
             </div>
             <div className="complex-card side-card">
               <div className="side-label">Left side first</div>
-              <div>1 x Right Clean</div>
-              <div>1 x Right Press</div>
-              <div>1 x Left Clean</div>
-              <div>1 x Left Press</div>
-              <div>2 x Left Offset Squats</div>
+              <div>1 x Left Clean & Press</div>
+              <div>1 x Handswitch Swing</div>
+              <div>1 x Right Clean & Press</div>
+              <div>2 x Front Squats (KB racked on right)</div>
             </div>
           </div>
         )}
       </div>
 
-      <p className="subtitle" style={{ marginBottom: 22 }}>
+      <p className="subtitle setup-note">
         {config.mode === "double"
-          ? "One round = 2 double cleans, 1 double press, and 3 double front squats."
-          : "One round alternates sides: one minute with right offset squats, the next minute repeats the same clean and press sequence on the opposite side."}
+          ? "One round = 2 cleans, 1 press, and 3 squats."
+          : "One round = clean & press one side, handswitch swing, clean & press the other side, then 2 front squats with the KB racked on that side; alternate which side starts each round."}
       </p>
 
-      <div className="field-row">
+      <div className="field-row setting-row">
         <p className="section-label">How many kettlebells?</p>
         <div className="segmented" role="group" aria-label="Kettlebell mode">
           <button
@@ -160,20 +160,16 @@ export function SetupScreen({
         </div>
       </div>
 
-      <div className="field-row">
+      <div className="field-row setting-row setting-row-static">
         <div className="field-row-head">
-          <p className="section-label" style={{ margin: 0 }}>
-            Interval
-          </p>
+          <p className="section-label">Interval</p>
           <span className="field-value">60s / round</span>
         </div>
       </div>
 
-      <div className="field-row">
+      <div className="field-row setting-row">
         <div className="field-row-head">
-          <p className="section-label" style={{ margin: 0 }}>
-            Rounds
-          </p>
+          <p className="section-label">Rounds</p>
           <span className="field-value">{config.rounds}</span>
         </div>
         <div className="preset-row">
@@ -231,6 +227,17 @@ export function SetupScreen({
       <button type="button" className="start-btn" onClick={onStart}>
         Start Workout
       </button>
+
+      <p className="setup-footer">
+        Made with ❤️ by{" "}
+        <a
+          className="setup-footer"
+          target="_blank"
+          href="https://github.com/ChrisCooper0/abcemom"
+        >
+          Cooper
+        </a>
+      </p>
     </div>
   );
 }
@@ -257,17 +264,19 @@ export function RunningScreen({
   countdownLabel?: string;
 }) {
   return (
-    <div className="run-wrap">
-      <p className="run-eyebrow">
-        {countdownLabel
-          ? countdownLabel
-          : config.mode === "single"
-          ? "Single Kettlebell"
-          : "Double Kettlebell"}
-      </p>
-      <p className="round-indicator">
-        Round <span>{round}</span> / {config.rounds}
-      </p>
+    <div className={`run-wrap ${isPaused ? "is-paused" : ""}`}>
+      <div className="run-header">
+        <p className="run-eyebrow">
+          {countdownLabel
+            ? countdownLabel
+            : config.mode === "single"
+              ? "Single Kettlebell"
+              : "Double Kettlebell"}
+        </p>
+        <p className="round-indicator">
+          Round <span>{round}</span> / {config.rounds}
+        </p>
+      </div>
 
       <TimerDial
         secondsLeft={secondsLeft}
@@ -277,24 +286,29 @@ export function RunningScreen({
 
       {config.mode === "double" ? (
         <p className="reps-reminder">
-          <b>2</b> Double Cleans&nbsp; · &nbsp;<b>1&nbsp;</b> Double Press&nbsp;
-          · &nbsp;<b>3</b> Double Front Squats
+          <b>2</b> Cleans&nbsp; · &nbsp;<b>1&nbsp;</b> Press&nbsp; · &nbsp;
+          <b>3</b> Squats
         </p>
       ) : (
         <div className="reps-reminder reps-grid">
           <span>
-            <b>L</b> Clean & Press · <b>R</b> Clean & Press · <b>2</b> Right
-            Front Squats
+            {armLabel === "Right side first" ? (
+              <>
+                <b>R</b> Clean & Press · Handswitch Swing · <b>L</b> Clean &
+                Press · <b>2</b> Front Squats (KB racked on <b>L</b>)
+              </>
+            ) : (
+              <>
+                <b>L</b> Clean & Press · Handswitch Swing · <b>R</b> Clean &
+                Press · <b>2</b> Front Squats (KB racked on <b>R</b>)
+              </>
+            )}
           </span>
-          <span>
-            <b>R</b> Clean & Press · <b>L</b> Clean & Press · <b>2</b> Left
-            Front Squats
-          </span>
-          <span>Alternate which side squats first each round.</span>
+          <span>Alternate which side leads each round.</span>
         </div>
       )}
 
-      <div className="run-controls">
+      <div className="run-controls" aria-label="Workout controls">
         <button type="button" onClick={onTogglePause}>
           {isPaused ? "Resume" : "Pause"}
         </button>
@@ -321,10 +335,13 @@ export function CompleteScreen({
 
   return (
     <div className="complete-wrap">
+      <div className="complete-mark" aria-hidden="true">
+        ✓
+      </div>
       <p className="complete-eyebrow">Workout Complete</p>
       <h1 className="complete-title">Rack the Bells</h1>
 
-      <div className="complete-stats">
+      <div className="complete-stats" aria-label="Workout summary">
         <div>
           <div className="complete-stat-value">{roundsToShow}</div>
           <div className="complete-stat-label">Rounds</div>
