@@ -109,21 +109,13 @@ export function SetupScreen({
             </div>
           </>
         ) : (
-          <div className="complex-grid">
-            <div className="complex-card side-card">
-              <div className="side-label">Right side first</div>
-              <div>1 x Right Clean & Press</div>
-              <div>1 x Handswitch Swing</div>
-              <div>1 x Left Clean & Press</div>
-              <div>2 x Front Squats (KB racked on left)</div>
-            </div>
-            <div className="complex-card side-card">
-              <div className="side-label">Left side first</div>
-              <div>1 x Left Clean & Press</div>
-              <div>1 x Handswitch Swing</div>
-              <div>1 x Right Clean & Press</div>
-              <div>2 x Front Squats (KB racked on right)</div>
-            </div>
+          <div className="complex-card side-card">
+            <div>1 x Left Clean & Press</div>
+            <div>1 x Right Clean & Press</div>
+            <div>2 x Right Front Squats</div>
+            <div>1 x Right Clean & Press</div>
+            <div>1 x Left Clean & Press</div>
+            <div>2 x Left Front Squats</div>
           </div>
         )}
       </div>
@@ -131,7 +123,7 @@ export function SetupScreen({
       <p className="subtitle setup-note">
         {config.mode === "double"
           ? "One round = 2 cleans, 1 press, and 3 squats."
-          : "One round = clean & press one side, handswitch swing, clean & press the other side, then 2 front squats with the KB racked on that side; alternate which side starts each round."}
+          : "One round = left clean & press, right clean & press, 2 right front squats, right clean & press, left clean & press, and 2 left front squats."}
       </p>
 
       <div className="field-row setting-row">
@@ -292,19 +284,11 @@ export function RunningScreen({
       ) : (
         <div className="reps-reminder reps-grid">
           <span>
-            {armLabel === "Right side first" ? (
-              <>
-                <b>R</b> Clean & Press · Handswitch Swing · <b>L</b> Clean &
-                Press · <b>2</b> Front Squats (KB racked on <b>L</b>)
-              </>
-            ) : (
-              <>
-                <b>L</b> Clean & Press · Handswitch Swing · <b>R</b> Clean &
-                Press · <b>2</b> Front Squats (KB racked on <b>R</b>)
-              </>
-            )}
+            <>
+              <b>L</b> Clean & Press · <b>R</b> Clean & Press · <b>2</b> R Front
+              Squats · <b>R</b> Clean & Press · <b>L</b> Clean & Press · <b>2</b> L Front Squats
+            </>
           </span>
-          <span>Alternate which side leads each round.</span>
         </div>
       )}
 

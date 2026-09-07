@@ -157,9 +157,7 @@ export default function Page() {
 
   const armLabel =
     config.mode === "single"
-      ? round % 2 === 1
-        ? "Right side first"
-        : "Left side first"
+      ? "Left side first"
       : null;
 
   const displayedSeconds =
