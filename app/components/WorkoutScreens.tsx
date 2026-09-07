@@ -10,7 +10,7 @@ export type WorkoutConfig = {
 
 const ROUNDS_PRESETS = [5, 6, 8, 10, 15, 20];
 const MIN_CUSTOM_ROUNDS = 1;
-const MAX_CUSTOM_ROUNDS = 60;
+const MAX_CUSTOM_ROUNDS = 90;
 const DIGIT_REGEX = /\D/g;
 
 export function SetupScreen({
@@ -113,6 +113,7 @@ export function SetupScreen({
             <div>1 x Left Clean & Press</div>
             <div>1 x Right Clean & Press</div>
             <div>2 x Right Front Squats</div>
+            <br></br>
             <div>1 x Right Clean & Press</div>
             <div>1 x Left Clean & Press</div>
             <div>2 x Left Front Squats</div>
@@ -286,7 +287,8 @@ export function RunningScreen({
           <span>
             <>
               <b>L</b> Clean & Press · <b>R</b> Clean & Press · <b>2</b> R Front
-              Squats · <b>R</b> Clean & Press · <b>L</b> Clean & Press · <b>2</b> L Front Squats
+              Squats · <b>R</b> Clean & Press · <b>L</b> Clean & Press ·{" "}
+              <b>2</b> L Front Squats
             </>
           </span>
         </div>
