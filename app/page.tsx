@@ -12,7 +12,7 @@ import {
 import "./page.css";
 
 const EMOM_INTERVAL_SECONDS = 60;
-const COUNTDOWN_SECONDS = 3;
+const COUNTDOWN_SECONDS = 5;
 const DEFAULT_CONFIG: WorkoutConfig = {
   mode: "double",
   rounds: 10,
@@ -46,8 +46,7 @@ export default function Page() {
     lastCountdownMarkRef.current = -1;
     setIsPaused(false);
     setScreen("countdown");
-    beep(520, 90, 0.045);
-  }, [beep]);
+  }, []);
 
   const finishWorkout = useCallback(
     (completedRounds: number, elapsedSeconds: number) => {
@@ -139,9 +138,8 @@ export default function Page() {
         return;
       }
 
-      setCountdownSeconds(remaining);
-
       const wholeSecondsLeft = Math.ceil(remaining);
+      setCountdownSeconds(wholeSecondsLeft);
       if (
         wholeSecondsLeft >= 1 &&
         lastCountdownMarkRef.current !== wholeSecondsLeft
@@ -157,7 +155,9 @@ export default function Page() {
 
   const armLabel =
     config.mode === "single"
-      ? "Left side first"
+      ? round % 2 === 1
+        ? "Left side starts"
+        : "Right side starts"
       : null;
 
   const displayedSeconds =
